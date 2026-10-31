@@ -64,4 +64,4 @@
 
 ## 部署
 
-暫定部署於 IIS（Next.js）。細節屬技術選型，見 `tech-stack.md`。
+暫定部署於 IIS（Next.js）。第一階段只在本機 localhost 驗證，部署留到後續階段。細節屬技術選型，見 `tech-stack.md`。
