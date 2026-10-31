@@ -39,8 +39,8 @@
 
 ### 6. 收尾
 - 把實際的 `npm` 指令（dev、build、lint 等）與 Node 版本補進 `CLAUDE.md`。
-- 建立 `progress.md`，記錄第一階段結果與是否確認可行。
-- 完成標準：`CLAUDE.md` 指令可照做；`progress.md` 存在。
+- 更新 `progress.md`，記錄第一階段結果與是否確認可行。
+- 完成標準：`CLAUDE.md` 指令可照做；`progress.md` 已填寫第一階段結論。
 
 ## 不做
 

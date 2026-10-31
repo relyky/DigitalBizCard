@@ -18,7 +18,7 @@ DigitalBizCard 是員工電子名片分享網站。**目前尚無程式碼**（�
 src/                        程式碼
 ```
 
-目前已有 `raw/`、`product-requirements.md`、`tech-stack.md`，`implementation-plan.md` 與 `progress.md` 尚未建立。產品規格以 `product-requirements.md` 為準，原始需求見 `raw/DigitalBizCard_requirement.md`。
+目前已有 `raw/`、`product-requirements.md`、`tech-stack.md`、`implementation-plan.md`、`progress.md`。產品規格以 `product-requirements.md` 為準，原始需求見 `raw/DigitalBizCard_requirement.md`。
 
 ## 產品與技術方向（出自需求文件）
 
