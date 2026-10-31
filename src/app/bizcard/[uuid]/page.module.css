@@ -1,0 +1,15 @@
+/* 投影片由上到下排列，依容器寬度等比縮放（Marp 每頁為 1280x720 的 SVG） */
+.slides {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 16px;
+  box-sizing: border-box;
+}
+
+.slides :global(.marpit > svg) {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
