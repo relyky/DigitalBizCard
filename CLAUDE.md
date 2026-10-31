@@ -18,7 +18,7 @@ DigitalBizCard 是員工電子名片分享網站。**目前尚無程式碼**（�
 src/                        程式碼
 ```
 
-目前只有 `.docs/raw/` 存在，其餘文件尚未建立。需求以 `.docs/raw/DigitalBizCard_requirement.md` 為準。
+目前已有 `raw/`、`product-requirements.md`、`tech-stack.md`，`implementation-plan.md` 與 `progress.md` 尚未建立。產品規格以 `product-requirements.md` 為準，原始需求見 `raw/DigitalBizCard_requirement.md`。
 
 ## 產品與技術方向（出自需求文件）
 
@@ -36,7 +36,7 @@ src/                        程式碼
 - 內頁以 `---` 分隔：主治專長、學歷、經歷、專科證書、LINE 加好友、加入通訊錄。
 - 樣式寫在檔頭 front matter 的 `style:`，每人有各自主題色。
 - QR code 目前以外部服務 `api.qrserver.com` 產圖；LINE 連結與 vCard 資料多為佔位的範例值。vCard 內容經 URL encode 後放在 `data=`，電話的 `+` 必須寫成 `%2B`。
-- 加入通訊錄頁的版面：`![bg right:42% w:320](…)` 把 QR code 放右側，左側為條列聯絡資料。
+- 加入通訊錄頁的版面：`![bg right:35% w:320](…)` 把 QR code 放右側，左側為條列聯絡資料；頁內的 `/vcard/*.vcf` 連結是無效的測試連結，第一階段不實作。
 
 ## 慣例
 
