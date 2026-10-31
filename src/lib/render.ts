@@ -12,7 +12,13 @@ const portraitMarp = new Marp({
   container: new Element("div", { class: "marpit-portrait" }),
 });
 portraitMarp.themeSet.add(
-  `${landscapeMarp.themeSet.get("default")!.css}\nsection { width: 720px; height: 1280px; }`,
+  `${landscapeMarp.themeSet.get("default")!.css}
+section { width: 720px; height: 1280px; }
+/* 圖片與文字並排的段落（如 LINE 頁的 QR code + 連結）改上下排列，避免圖片被壓縮 */
+section p:has(> img) { flex-direction: column; }
+/* LINE 頁（QR code + 連結）：水平置中、放大 QR code 填滿版面 */
+section p:has(> img):has(> a) { gap: 48px; margin-top: 80px; }
+section p:has(> img):has(> a) > img { width: 480px !important; }`,
 );
 
 export function renderCard(

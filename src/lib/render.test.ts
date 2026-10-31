@@ -27,6 +27,9 @@ describe("renderCard", () => {
     expect(portrait.html.match(/<svg data-marpit-svg/g)).toHaveLength(7);
     expect(portrait.html).toContain('viewBox="0 0 720 1280"');
     expect(portrait.css).toContain("div.marpit-portrait");
+    // 直式版圖片段落改上下排列
+    expect(portrait.css).toContain("p:has(> img){flex-direction:column}");
+    expect(landscape.css).not.toContain("p:has(> img){flex-direction:column}");
     // 通訊錄頁的 bg right 分割背景只在直式版改成一般圖片
     expect(landscape.html).toContain('data-marpit-advanced-background-split="right"');
     expect(portrait.html).not.toContain('data-marpit-advanced-background-split="right"');
