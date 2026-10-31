@@ -1,4 +1,4 @@
-/* 投影片由上到下排列，依容器寬度等比縮放（Marp 每頁為 1280x720 的 SVG） */
+/* 投影片由上到下排列，依容器寬度等比縮放（橫式 1280x720、直式 720x1280 的 SVG） */
 .slides {
   max-width: 1280px;
   margin: 0 auto;
@@ -6,10 +6,25 @@
   box-sizing: border-box;
 }
 
-.slides :global(.marpit > svg) {
+.slides :global(.marpit > svg),
+.slides :global(.marpit-portrait > svg) {
   display: block;
   width: 100%;
   height: auto;
   margin-bottom: 16px;
   box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* 預設顯示橫式；寬度 600px 以下改顯示直式，字體才不會縮得太小 */
+.slides :global(.marpit-portrait) {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .slides :global(.marpit) {
+    display: none;
+  }
+  .slides :global(.marpit-portrait) {
+    display: block;
+  }
 }
