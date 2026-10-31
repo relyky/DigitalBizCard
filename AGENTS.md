@@ -35,8 +35,10 @@ npx vitest run -t "不存在的 uuid"       # 依測試名稱篩選
 - `src/lib/cards.ts`：寫死的 uuid → Marp 檔對照（`CARD_FILES`），`findCardMarkdown(uuid)` 找不到回傳 `null`。新增名片要同時放 `.marp.md` 檔並在 `CARD_FILES` 加一筆。
   - Marp 檔在執行時以 `path.join(process.cwd(), "src", "cards")` 讀取：`next start` 或 IIS 部署時工作目錄必須是專案根目錄，且 `src/cards/` 要一併部署。
   - 測試網址：`/bizcard/a1123456789012345678901234567890`（郝聰明）、`b2…`（甄美麗）、`c3…`（艾漂亮）、`d4…`（高又壯），uuid 其餘部分相同。
-- `src/lib/render.ts`：`renderCard(uuid)` 用 `@marp-team/marp-core` 轉成 `{ html, css }`，找不到回傳 `null`。
-- `src/app/bizcard/[uuid]/page.tsx`：`renderCard` 為 `null` 時 `notFound()`（404）；否則輸出 Marp 的 CSS 與 HTML。每頁投影片是 1280×720 的 SVG，用 `width:100%` 等比縮放。
+- `src/lib/render.ts`：`renderCard(uuid)` 用 `@marp-team/marp-core` 轉成 `{ landscape, portrait }`（各為 `{ html, css }`），找不到回傳 `null`。
+  - `landscape`：原樣渲染，1280×720。
+  - `portrait`：手機用的 720×1280 直式版。覆寫 `default` 主題的尺寸並追加直式 CSS；容器 class 為 `marpit-portrait`（橫式為 `marpit`），兩份 CSS 才不會互相干擾。渲染前把 `![bg left/right:N%]` 改成一般圖片（封面照片移到上方、通訊錄 QR code 排入內容），因為直式寬度放不下左右分割。
+- `src/app/bizcard/[uuid]/page.tsx`：`renderCard` 為 `null` 時 `notFound()`（404）；否則同時輸出橫式與直式兩份，`page.module.css` 以 `@media (max-width: 600px)` 切換（平板以上維持橫式）。每頁投影片是 SVG，用 `width:100%` 等比縮放。
 - `globals.css` 只保留 `body` 的邊距與底色。不要加全域重設規則（例如 `* { margin:0; padding:0 }`），以免影響 Marp 樣式。
 - 計算投影片頁數時要數 `<svg data-marpit-svg`，不能數 `<section>`：`bg left/right` 背景圖會多產生 section。
 - Vitest 的 `@` → `src` 別名另設於 `vitest.config.ts`（不讀 `tsconfig`），改路徑別名時兩邊都要改。測試只收 `src/**/*.test.ts`，環境為 `node`。
