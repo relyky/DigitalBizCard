@@ -1,12 +1,19 @@
 
-smart  郝聰明
-beauty 甄美麗
-pretty 艾漂亮
-strong 高又壯
+# 電子名片網站
 
-======
+## Rolemap
 
-## 資料表
+### 第一階段
+1. 用 next.js 開發獨立小網站，只用來分享員工的電子名片給客戶。
+2. 使用 marp 範例渲染成網頁。
+3. 確認可行再規劃下一階段。
+
+### 第二階段
+- 目標: 員工電子名片資料維護。
+(待**第一階段**完成再規劃)
+
+## 暫定資料表
+註： **第一階段**還不需要。
 
 -- 電子名片 
 CREATE TABLE biz_card (
@@ -29,31 +36,23 @@ CREATE TABLE staff_headshot (
 );
 
 
-======
-
 ## 技術棧
 
 framework: Next.js
 database: SQLite3
 
-部署方式: 
-[在IIS上部署Nextjs應用程式](https://www.csie.ntu.edu.tw/~r08922a25/blog/2026/10/12/%E5%9C%A8IIS%E4%B8%8A%E9%83%A8%E7%BD%B2Nextjs%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/)
+暫定部署方式: [在IIS上部署Nextjs應用程式](https://www.csie.ntu.edu.tw/~r08922a25/blog/2026/10/12/%E5%9C%A8IIS%E4%B8%8A%E9%83%A8%E7%BD%B2Nextjs%E6%87%89%E7%94%A8%E7%A8%8B%E5%BC%8F/)
 
 ## 預計成果
+輸入網址瀏覽
 http://localhost:3000/bizcard/<staff-shared-uuid>
 
-##
 
 ## 方法
-marp 套件
-qrcode 套件
+### marp 套件
 
-line_me qrcode 
-vcard qrcode
-
+### qrcode rendering 套件
+渲染 line_me qrcode 與 vcard qrcode。
 
 ## todo
-[ ] 準備4份測試資料
-[ ] 把成果給它。
-
-
+[x] 準備4份 marp 範本測試: 郝聰明、甄美麗、艾漂亮、高又壯
