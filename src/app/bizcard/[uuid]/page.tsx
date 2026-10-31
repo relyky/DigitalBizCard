@@ -9,10 +9,13 @@ export default async function BizCardPage({
   const card = renderCard(uuid);
   if (!card) notFound();
 
+  // 橫式與直式各輸出一份，由 page.module.css 的 media query 決定顯示哪一份
   return (
     <main className={styles.slides}>
-      <style dangerouslySetInnerHTML={{ __html: card.css }} />
-      <div dangerouslySetInnerHTML={{ __html: card.html }} />
+      <style dangerouslySetInnerHTML={{ __html: card.landscape.css }} />
+      <style dangerouslySetInnerHTML={{ __html: card.portrait.css }} />
+      <div dangerouslySetInnerHTML={{ __html: card.landscape.html }} />
+      <div dangerouslySetInnerHTML={{ __html: card.portrait.html }} />
     </main>
   );
 }
