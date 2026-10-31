@@ -9,31 +9,77 @@
 3. 確認可行再規劃下一階段。
 
 ### 第二階段
-- 目標: 員工電子名片資料維護。
+- 目標: 建立資料表。並把測試資料填入確認可行。
 (待**第一階段**完成再規劃)
 
+### 第三階段
+- 目標: 員工電子名片資料維護。
+- 建立 MCP server 介面進行資料維護。
+(待**第二階段**完成再規劃)
+
 ## 暫定資料表
+
 註： **第一階段**還不需要。
 
 -- 電子名片 
 CREATE TABLE biz_card (
-    id TEXT PRIMARY KEY,                       -- 儲存 UUID
-    staff_id TEXT NOT NULL,                    -- 公司員工 ID
-    is_active INTEGER NOT NULL DEFAULT 1,      -- 狀態：1 啟用, 0 停用
-    headshot_url TEXT,                         -- 圖片以 URL 取得
-    marp_cnt TEXT,                             -- marp 內容
-    vcard_cnt TEXT,                            -- 聯絡資訊內容
-    line_me TEXT,                              -- 加入 line 好友
-    upd_at TEXT DEFAULT CURRENT_TIMESTAMP      -- 最後更新時間
+    id TEXT PRIMARY KEY,                       -- UUID: 32位 hex 文字。
+    staff_id TEXT NOT NULL,                    -- 公司員工 ID: 應該是 unique。
+    is_active INTEGER NOT NULL DEFAULT 1,      -- 狀態：1 啟用, 0 停用。
+    marp_body TEXT,                             -- marp 內容。
+    vcard_cnt TEXT,                            -- 聯絡資料，需符合 vCard 格式。
+    line_me TEXT,                              -- 加入 line 好友的 URL。
+    upd_at TEXT DEFAULT CURRENT_TIMESTAMP      -- 最後更新時間。
 );
 
 -- 大頭照
 CREATE TABLE staff_headshot (
-    id TEXT PRIMARY KEY,                       -- 員工 ID 或圖片 ID
-    img_blob BLOB,                             -- 圖片 binary
-    img_type TEXT,                             -- 圖片格式 (例如 image/png)
-    upd_at TEXT DEFAULT CURRENT_TIMESTAMP      -- 最後更新時間
+    id TEXT PRIMARY KEY,                       -- 公司員工 ID 或圖片 ID。
+    img_blob BLOB,                             -- 圖片 binary。
+    mime_type TEXT,                            -- 圖片 MIME 類別 (例如 image/png)。
+    upd_at TEXT DEFAULT CURRENT_TIMESTAMP      -- 最後更新時間。
 );
+
+
+### vCard 範例
+
+vCard 使用第3版。
+
+(評估中)
+```vcard
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=UTF-8:郝;聰明;;;
+FN;CHARSET=UTF-8:郝聰明
+ORG;CHARSET=UTF-8:範例科技公司
+TEL;TYPE=CELL:+886912345101
+TEL;TYPE=WORK:+886200000101
+EMAIL:tsungming.hao@example.com
+END:VCARD
+```
+
+```vcard
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=UTF-8:郝聰明;;;;
+FN;CHARSET=UTF-8:郝聰明
+ORG;CHARSET=UTF-8:範例科技公司
+TEL;TYPE=CELL:+886912345101
+TEL;TYPE=WORK:+886200000101
+EMAIL:tsungming.hao@example.com
+END:VCARD
+```
+
+```json
+{
+ "Surname": "郝",
+ "GivenName": "聰明",
+ "ORG" : "範例科技公司",
+ "TEL_CELL": "+886912345101",
+ "TEL_WORK": "+886200000101",
+ "EMAIL": "tsungming.hao@example.com"
+}
+```
 
 
 ## 技術棧
@@ -50,6 +96,7 @@ http://localhost:3000/bizcard/<staff-shared-uuid>
 
 ## 方法
 ### marp 套件
+選用: "@marp-team/marp-core"
 
 ### qrcode rendering 套件
 渲染 line_me qrcode 與 vcard qrcode。
