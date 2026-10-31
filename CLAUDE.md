@@ -4,7 +4,30 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 專案狀態
 
-DigitalBizCard 是員工電子名片分享網站。**目前尚無程式碼**（沒有 `src/`、`package.json`，因此沒有 build / lint / test 指令），只有 `.docs/` 下的規劃文件與 Marp 範例。建立專案後請把實際指令補進本檔。
+DigitalBizCard 是員工電子名片分享網站。第一階段施工中，進度見 `.docs/progress.md`。
+
+## 指令
+
+Next.js 16（App Router、TypeScript、無 Tailwind），Node >= 20.9.0（開發環境 v24）。套件管理用 npm。
+
+```bash
+npm run dev     # 開發伺服器 http://localhost:3000
+npm run build   # 正式建置
+npm run lint    # ESLint
+npm test        # Vitest（vitest run，跑完即結束）
+npx vitest run src/lib/cards.test.ts   # 執行單一測試檔
+npx vitest run -t "不存在的 uuid"       # 依測試名稱篩選
+```
+
+## 程式結構
+
+- `src/cards/*.marp.md`：名片 Marp 來源檔（從 `.docs/raw/` 複製，程式不讀 `.docs/`）。
+- `src/lib/cards.ts`：寫死的 uuid → Marp 檔對照，`findCardMarkdown(uuid)` 找不到回傳 `null`。
+- `src/lib/render.ts`：`renderCard(uuid)` 用 `@marp-team/marp-core` 轉成 `{ html, css }`，找不到回傳 `null`。
+- `src/app/bizcard/[uuid]/page.tsx`：`renderCard` 為 `null` 時 `notFound()`（404）；否則輸出 Marp 的 CSS 與 HTML。每頁投影片是 1280×720 的 SVG，用 `width:100%` 等比縮放。
+- `globals.css` 只保留 `body` 的邊距與底色。不要加全域重設規則（例如 `* { margin:0; padding:0 }`），以免影響 Marp 樣式。
+- 計算投影片頁數時要數 `<svg data-marpit-svg`，不能數 `<section>`：`bg left/right` 背景圖會多產生 section。
+- 開發伺服器執行中安裝套件後，若頁面沒有反映程式修改，就重啟 `npm run dev`。
 
 ## 文件結構
 
@@ -34,7 +57,7 @@ src/                        程式碼
 
 - 首頁（`cover` class）：頭像（`![bg left:38%]`）、姓名、英文名、職稱與專長。
 - 內頁以 `---` 分隔：主治專長、學歷、經歷、專科證書、LINE 加好友、加入通訊錄。
-- 樣式寫在檔頭 front matter 的 `style:`，每人有各自主題色。
+- 樣式寫在檔頭 front matter 的 `style:`，目前 4 份都使用同一主題色 `#bf4690`。
 - QR code 目前以外部服務 `api.qrserver.com` 產圖；LINE 連結與 vCard 資料多為佔位的範例值。vCard 內容經 URL encode 後放在 `data=`，電話的 `+` 必須寫成 `%2B`。
 - 加入通訊錄頁的版面：`![bg right:35% w:320](…)` 把 QR code 放右側，左側為條列聯絡資料；頁內的 `/vcard/*.vcf` 連結是無效的測試連結，第一階段不實作。
 
