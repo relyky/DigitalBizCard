@@ -8,6 +8,7 @@
 |---|---|---|---|
 | Web 框架 | Next.js（App Router） | 第一階段 | 需求文件、討論 |
 | 套件管理 | npm | 第一階段 | 討論 |
+| 測試 | Vitest（TDD：步驟 2、3 的邏輯；版面與 QR code 手動驗證） | 第一階段 | 討論 |
 | Marp 渲染 | `@marp-team/marp-core`，於伺服器端把 Markdown 轉成 HTML 與 CSS | 第一階段 | 討論 |
 | QR code | 外部服務 `api.qrserver.com`（假資料） | 第一階段 | 討論 |
 | QR code | 本機產生的 qrcode 套件（套件待選） | 第二階段 | 討論 |

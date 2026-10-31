@@ -17,11 +17,11 @@
 
 ## 第一階段施工
 
-步驟定義見 `implementation-plan.md`。
+步驟定義見 `implementation-plan.md`。步驟 2、3 的邏輯採 TDD（Vitest）；步驟 4、5 手動驗證。
 
-- [ ] 1. 建立 Next.js 專案
-- [ ] 2. 放入 Marp 來源檔與 uuid 對照表
-- [ ] 3. 建立 `/bizcard/<uuid>` 頁面
+- [ ] 1. 建立 Next.js 專案（含 Vitest）
+- [ ] 2. 放入 Marp 來源檔與 uuid 對照表（TDD）
+- [ ] 3. 建立 `/bizcard/<uuid>` 頁面（TDD）
 - [ ] 4. 驗證渲染結果
 - [ ] 5. 驗證 QR code
 - [ ] 6. 收尾
