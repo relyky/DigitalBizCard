@@ -18,7 +18,12 @@ section { width: 720px; height: 1280px; }
 section p:has(> img) { flex-direction: column; }
 /* LINE 頁（QR code + 連結）：水平置中、放大 QR code 填滿版面 */
 section p:has(> img):has(> a) { gap: 48px; margin-top: 80px; }
-section p:has(> img):has(> a) > img { width: 480px !important; }`,
+section p:has(> img):has(> a) > img { width: 480px !important; }
+/* 封面：照片改為頂部滿版（抵銷 section 的 padding），文字排在下方。
+   名片 front matter 的 section.cover 設了 align-content:center，且排在主題之後，需 !important 覆寫 */
+section.cover { align-content: start !important; padding-top: 0; }
+section.cover p:has(> img) { margin: 0 -80px 48px -60px; }
+section.cover p:has(> img) > img { width: 100%; height: 640px; object-fit: cover; object-position: top; }`,
 );
 
 export function renderCard(
@@ -29,8 +34,10 @@ export function renderCard(
   const pick = ({ html, css }: RenderedSlides) => ({ html, css });
   return {
     landscape: pick(landscapeMarp.render(markdown)),
-    // 直式版右側空間太窄：把 `![bg right:35% w:320](…)` 改成一般圖片 `![w:320](…)`，
-    // 讓 QR code 排在內容中、文字用整頁寬度
-    portrait: pick(portraitMarp.render(markdown.replace(/!\[bg right:\d+%\s*/g, "!["))),
+    // 直式版左右分割太窄：把 `![bg left:38%](…)`、`![bg right:35% w:320](…)` 改成一般圖片，
+    // 封面照片排到上方、QR code 排在內容中，文字用整頁寬度
+    portrait: pick(
+      portraitMarp.render(markdown.replace(/!\[bg (?:left|right):\d+%\s*/g, "![")),
+    ),
   };
 }
