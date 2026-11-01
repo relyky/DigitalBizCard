@@ -27,7 +27,6 @@ CREATE TABLE biz_card (
     staff_id TEXT NOT NULL,                    -- 公司員工 ID: 應該是 unique。
     is_active INTEGER NOT NULL DEFAULT 1,      -- 狀態：1 啟用, 0 停用。
     marp_body TEXT,                             -- marp 內容。
-    vcard_cnt TEXT,                            -- 聯絡資料，需符合 vCard 格式。
     line_me TEXT,                              -- 加入 line 好友的 URL。
     upd_at TEXT DEFAULT CURRENT_TIMESTAMP      -- 最後更新時間。
 );
@@ -35,38 +34,60 @@ CREATE TABLE biz_card (
 -- 大頭照
 CREATE TABLE staff_headshot (
     id TEXT PRIMARY KEY,                       -- 公司員工 ID 或圖片 ID。
-    img_blob BLOB,                             -- 圖片 binary。
+    img BLOB,                                  -- 圖片 binary。
     mime_type TEXT,                            -- 圖片 MIME 類別 (例如 image/png)。
     upd_at TEXT DEFAULT CURRENT_TIMESTAMP      -- 最後更新時間。
 );
 
+-- 通訊錄聯絡資料
+CREATE TABLE staff_contact (
+    id TEXT PRIMARY KEY,                       -- 公司員工 ID 或圖片 ID。
+    contact_info TEXT,                                 -- 公司員工聯絡資料，以 JSON 儲存。
+    qrcode_img BLOB,                           -- QR Code 圖片 binary。
+    qrcode_mime TEXT,                          -- QR Code 圖片 MIME 類別 (例如 image/png)。  
+		vcard_vcf BLOB,                            -- vCard 檔案 binary。
+		vcard_mime TEXT,                           -- vCard 檔案 MIME 類別 (例如 text/plain)。
+    upd_at TEXT DEFAULT CURRENT_TIMESTAMP      -- 最後更新時間。
+);
 
-### vCard 範例
+## 通訊錄交換聯絡資料
 
-vCard 使用第3版。
+用 JSON 格式存入 6 個欄位。以例子說明。
 
-(評估中)
-```vcard
-BEGIN:VCARD
-VERSION:3.0
-N;CHARSET=UTF-8:郝;聰明;;;
-FN;CHARSET=UTF-8:郝聰明
-ORG;CHARSET=UTF-8:範例科技公司
-TEL;TYPE=CELL:+886912345101
-TEL;TYPE=WORK:+886200000101
-EMAIL:tsungming.hao@example.com
-END:VCARD
-```
+### 儲存資料 JSON
+
+資料表以 JSON 存入。
+均以 UTF8 進行編碼。
 
 ```json
 {
 	"surname": "郝",
 	"givenName": "聰明", 
 	"org" : "範例科技公司",
-	"cellTel": "+886912345101",
-	"workTel": "+886200000101",
+	"cellTel": "0900-123-456",
+	"workTel": "02-2222-1234,919",
 	"email": "tsungming.hao@example.com"
 }
+```
+
+### 檔案交換用 vCard 檔(*.vcf)
+
+```vCard
+BEGIN:VCARD
+VERSION:3.0
+N;CHARSET=UTF-8:郝;聰明;;;
+FN;CHARSET=UTF-8:郝聰明
+ORG;CHARSET=UTF-8:範例科技公司
+TEL;TYPE=CELL:0900-123-456
+TEL;TYPE=WORK:02-2222-1234,919
+EMAIL:tsungming.hao@example.com
+END:VCARD
+```
+
+### 掃描 QR Code 交換用 MeCard 格式
+
+```meCard
+MECARD:N:郝聰明;ORG:範例科技公司;TEL:+886912345101;TEL:+886200000101;EMAIL:tsungming.hao@example.com;;
 ```
 
 ## 技術棧

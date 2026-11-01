@@ -70,7 +70,7 @@ src/                        程式碼
 - 首頁（`cover` class）：頭像（`![bg left:38%]`）、姓名、英文名、職稱與專長。
 - 內頁以 `---` 分隔：🛠 專業專長、🎓 學歷、💼 經歷、📜 專業證照、💬 LINE 加好友、📇 加入通訊錄。
 - 樣式寫在檔頭 front matter 的 `style:`，目前 4 份都使用同一主題色 `#bf4690`。
-- QR code 目前以外部服務 `api.qrserver.com` 產圖；LINE 連結與 vCard 資料多為佔位的範例值。vCard 內容經 URL encode 後放在 `data=`，電話的 `+` 必須寫成 `%2B`。
+- QR code 目前以外部服務 `api.qrserver.com` 產圖；LINE 連結與聯絡資料多為佔位的範例值。通訊錄 QR code 用 meCard 格式（`MECARD:N:姓,名;ORG:…;TEL:…;EMAIL:…;;`），內容經 URL encode 後放在 `data=`，電話的 `+` 必須寫成 `%2B`。
 - 加入通訊錄頁的版面：`![bg right:35% w:320](…)` 把 QR code 放右側，左側為條列聯絡資料；頁內的 `/vcard/*.vcf` 連結是無效的測試連結，第一階段不實作。
 - 名片圖片放在 `public/images/`，Marp 檔以 `/images/…` 絕對路徑引用。封面頭像多使用已合成 LOGO 的 `*_BannerLogo.png`（甄美麗例外，用 `BizCardLogo_text.png`），合成方式見專案 skill `.claude/skills/headshot-logo/`（需 ImageMagick 7 `magick`，僅手動呼叫）。
 - 封面右下角 LOGO 用 `![logo](/images/BannerLogo.png)`，靠 front matter 中 `img[alt="logo"]` 的樣式定位。
