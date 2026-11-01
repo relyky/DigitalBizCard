@@ -10,7 +10,7 @@
 
 ### 第二階段
 - 目標: 建立資料表。並把測試資料填入確認可行。
-(待**第一階段**完成再規劃)
+(規劃中)
 
 ### 第三階段
 - 目標: 員工電子名片資料維護。
@@ -58,29 +58,16 @@ EMAIL:tsungming.hao@example.com
 END:VCARD
 ```
 
-```vcard
-BEGIN:VCARD
-VERSION:3.0
-N;CHARSET=UTF-8:郝聰明;;;;
-FN;CHARSET=UTF-8:郝聰明
-ORG;CHARSET=UTF-8:範例科技公司
-TEL;TYPE=CELL:+886912345101
-TEL;TYPE=WORK:+886200000101
-EMAIL:tsungming.hao@example.com
-END:VCARD
-```
-
 ```json
 {
- "Surname": "郝",
- "GivenName": "聰明",
- "ORG" : "範例科技公司",
- "TEL_CELL": "+886912345101",
- "TEL_WORK": "+886200000101",
- "EMAIL": "tsungming.hao@example.com"
+	"surname": "郝",
+	"givenName": "聰明", 
+	"org" : "範例科技公司",
+	"cellTel": "+886912345101",
+	"workTel": "+886200000101",
+	"email": "tsungming.hao@example.com"
 }
 ```
-
 
 ## 技術棧
 
