@@ -23,7 +23,9 @@ section p:has(> img):has(> a) > img { width: 480px !important; }
    名片 front matter 的 section.cover 設了 align-content:center，且排在主題之後，需 !important 覆寫 */
 section.cover { align-content: start !important; padding-top: 0; }
 section.cover p:has(> img) { margin: 0 -80px 48px -60px; }
-section.cover p:has(> img) > img { width: 100%; height: 640px; object-fit: cover; object-position: top; }`,
+section.cover p:has(> img) > img { width: 100%; height: 640px; object-fit: cover; object-position: top; }
+/* 浮水印（名片設 class: watermark）：直式版面高長，改用名片指定的斜放圖並放大 */
+section.watermark { background-image: linear-gradient(rgba(255,255,255,.9), rgba(255,255,255,.9)), var(--watermark-portrait) !important; background-size: auto, 95% auto !important; }`,
 );
 
 export function renderCard(
